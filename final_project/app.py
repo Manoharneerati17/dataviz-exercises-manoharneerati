@@ -43,7 +43,7 @@ import pandas as pd
 @st.cache_data # or @st.cache depending on your Streamlit version
 def load_data():
     # Gets the exact directory path where app.py resides
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(current_dir, "data", "Food_Delivery_Times.csv")
     
     # If Food_Delivery_Times.csv is in the SAME folder as app.py:
     file_path = os.path.join(current_dir, "Food_Delivery_Times.csv")
