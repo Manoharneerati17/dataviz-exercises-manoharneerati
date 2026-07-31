@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 import numpy as np
 import plotly.express as px
 from pathlib import Path
@@ -36,7 +37,24 @@ def load_data():
     elif rel_path_2.exists():
         file_path = rel_path_2
     else:
-        raise FileNotFoundError("Could not find Food_Delivery_Times.csv in data folder or current directory.")
+       import os
+import pandas as pd
+
+@st.cache_data # or @st.cache depending on your Streamlit version
+def load_data():
+    # Gets the exact directory path where app.py resides
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # If Food_Delivery_Times.csv is in the SAME folder as app.py:
+    file_path = os.path.join(current_dir, "Food_Delivery_Times.csv")
+    
+    # OR if it is in a subfolder named 'data' inside final_project:
+    # file_path = os.path.join(current_dir, "data", "Food_Delivery_Times.csv")
+    
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"Could not find file at: {file_path}")
+        
+    return pd.read_csv(file_path)
 
     df = pd.read_csv(file_path)
 
